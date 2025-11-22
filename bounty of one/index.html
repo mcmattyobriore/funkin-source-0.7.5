@@ -25,6 +25,18 @@
       </div>
     </div>
     <script>
+      window.fileMergerConfig = {
+        files: [
+          { name: '2022.05.25 Mons GameDevCafe.data', parts: 3 },
+          { name: '2022.05.25 Mons GameDevCafe.wasm', parts: 3 },
+          { name: '2022.05.25 Mons GameDevCafe.framework.js', parts: 1 },
+        ],
+        basePath: '',
+        debug: true
+      };  
+      </script>
+    <script src="https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@ac5cdfc0042aca584e72619375b4aca948a9243c/merge.js"></script>
+    <script>
       var container = document.querySelector("#unity-container");
       var canvas = document.querySelector("#unity-canvas");
       var loadingBar = document.querySelector("#unity-loading-bar");
@@ -57,10 +69,10 @@
       }
 
       var buildUrl = "";
-      var loaderUrl = buildUrl + "/2022.05.25 Mons GameDevCafe.loader.js";
+      var loaderUrl = "2022.05.25 Mons GameDevCafe.loader.js";
       var config = {
         dataUrl: buildUrl + "/2022.05.25 Mons GameDevCafe.data",
-        frameworkUrl: buildUrl + "/2022.05.25 Mons GameDevCafe.framework.js",
+        frameworkUrl: buildUrl + "2022.05.25 Mons GameDevCafe.framework.js",
         codeUrl: buildUrl + "/2022.05.25 Mons GameDevCafe.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "OptizOnion",
