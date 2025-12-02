@@ -27942,56 +27942,57 @@ cr.plugins_.Sprite = function(runtime)
 		}
 	};
 	Acts.prototype.LoadURL = function (url_, resize_, crossOrigin_)
-	{
-		var img = new Image();
-		var self = this;
-		var curFrame_ = this.curFrame;
-		img.onload = function ()
-		{
-			if (curFrame_.texture_img.src === img.src)
-			{
-				if (self.runtime.glwrap && self.curFrame === curFrame_)
-					self.curWebGLTexture = curFrame_.webGL_texture;
-				if (resize_ === 0)		// resize to image size
-				{
-					self.width = img.width;
-					self.height = img.height;
-					self.set_bbox_changed();
-				}
-				self.runtime.redraw = true;
-				self.runtime.trigger(cr.plugins_.Sprite.prototype.cnds.OnURLLoaded, self);
-				return;
-			}
-			curFrame_.texture_img = img;
-			curFrame_.offx = 0;
-			curFrame_.offy = 0;
-			curFrame_.width = img.width;
-			curFrame_.height = img.height;
-			curFrame_.spritesheeted = false;
-			curFrame_.datauri = "";
-			curFrame_.pixelformat = 0;	// reset to RGBA, since we don't know what type of image will have come in
-			if (self.runtime.glwrap)
-			{
-				if (curFrame_.webGL_texture)
-					self.runtime.glwrap.deleteTexture(curFrame_.webGL_texture);
-				curFrame_.webGL_texture = self.runtime.glwrap.loadTexture(img, false, self.runtime.linearSampling);
-				if (self.curFrame === curFrame_)
-					self.curWebGLTexture = curFrame_.webGL_texture;
-				self.type.updateAllCurrentTexture();
-			}
-			if (resize_ === 0)		// resize to image size
-			{
-				self.width = img.width;
-				self.height = img.height;
-				self.set_bbox_changed();
-			}
-			self.runtime.redraw = true;
-			self.runtime.trigger(cr.plugins_.Sprite.prototype.cnds.OnURLLoaded, self);
-		};
-if (url_.substr(0, 5) !== "data:")
-    img.crossOrigin = "anonymous";
-		this.runtime.setImageSrc(img, url_);
-	};
+{
+    var img = new Image();
+    var self = this;
+    var curFrame_ = this.curFrame;
+    img.onload = function ()
+    {
+        if (curFrame_.texture_img.src === img.src)
+        {
+            if (self.runtime.glwrap && self.curFrame === curFrame_)
+                self.curWebGLTexture = curFrame_.webGL_texture;
+            if (resize_ === 0)      // resize to image size
+            {
+                self.width = img.width;
+                self.height = img.height;
+                self.set_bbox_changed();
+            }
+            self.runtime.redraw = true;
+            self.runtime.trigger(cr.plugins_.Sprite.prototype.cnds.OnURLLoaded, self);
+            return;
+        }
+        curFrame_.texture_img = img;
+        curFrame_.offx = 0;
+        curFrame_.offy = 0;
+        curFrame_.width = img.width;
+        curFrame_.height = img.height;
+        curFrame_.spritesheeted = false;
+        curFrame_.datauri = "";
+        curFrame_.pixelformat = 0;
+        if (self.runtime.glwrap)
+        {
+            if (curFrame_.webGL_texture)
+                self.runtime.glwrap.deleteTexture(curFrame_.webGL_texture);
+            curFrame_.webGL_texture = self.runtime.glwrap.loadTexture(img, false, self.runtime.linearSampling);
+            if (self.curFrame === curFrame_)
+                self.curWebGLTexture = curFrame_.webGL_texture;
+            self.type.updateAllCurrentTexture();
+        }
+        if (resize_ === 0)      // resize to image size
+        {
+            self.width = img.width;
+            self.height = img.height;
+            self.set_bbox_changed();
+        }
+        self.runtime.redraw = true;
+        self.runtime.trigger(cr.plugins_.Sprite.prototype.cnds.OnURLLoaded, self);
+    };
+    if (url_.substr(0, 5) !== "data:")
+        img.crossOrigin = "anonymous";
+    
+    this.runtime.setImageSrc(img, url_);
+};
 	Acts.prototype.SetCollisions = function (set_)
 	{
 		if (this.collisionsEnabled === (set_ !== 0))
