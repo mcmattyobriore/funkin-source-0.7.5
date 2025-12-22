@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      height: 100vh;
+    }
+    
+    .applet_div {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    #gameContainer {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    #scenarioCanvas {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      display: block;
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+    }
+    
+  
+  </style>
+</head>
+
+<body>
+
+
+  <div class="applet_div">
+    <script type="text/javascript" charset="utf-8" src="javascript_attachments/0020/0865/scenario27793.js"></script>
+    <script type="text/javascript" charset="utf-8" src="javascript/jszip.min.js"></script>
+    <script type="text/javascript" defer="yes">
+      function pre_main() {
+        storage_params = [];
+        storage_params["storage.standalone"] = true;
+        storage_params["storage.passcode"] = "0000000000000000";
+        storage_params["storage.scenarioId"] = 27793;
+        storage_params["storage.userId"] = -1;
+        storage_params["storage.userName"] = "";
+
+        var appletFile = "applet_attachments/0005/8405/greenfoot10726518013480945778.jar";
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", appletFile);
+        xhr.responseType = "arraybuffer";
+        xhr.onload = function() {
+          JSZip.loadAsync(xhr.response).then(function(zip) {
+            window.zip = zip;
+            main();
+            // Wait half a second for initialisation to complete before starting:
+            window.setTimeout(function() {
+              runButton = document.getElementById("playButton");
+              // Only simulate run click if scenario not auto-started:
+              if (runButton.textContent == "Run") {
+                runButton.click();
+              }
+              // Set up resize handling after game loads
+              resizeCanvas();
+            }, 500);
+          });
+        };
+
+        xhr.onerror = function() {
+          alert("Failed to load applet.");
+        };
+
+        xhr.send();
+      }
+
+      
+      function resizeCanvas() {
+        const canvas = document.getElementById('scenarioCanvas');
+        if (!canvas) return;
+        
+        const originalWidth = 1012;
+        const originalHeight = 662;
+        
+        const scaleX = window.innerWidth / originalWidth;
+        const scaleY = window.innerHeight / originalHeight;
+        const scale = Math.min(scaleX, scaleY);
+        
+        canvas.style.width = (originalWidth * scale) + 'px';
+        canvas.style.height = (originalHeight * scale) + 'px';
+      }
+      
+      window.addEventListener('resize', resizeCanvas);
+      
+      pre_main();
+    </script>
+    <div id="gameContainer">
+      <div style="display: inline-block;">
+        <div>
+          <div style="width: 100%;">
+            <!-- enclosing div for Greenfoot.ask() panel: -->
+            <div style="display: inline-block; touch-action: pinch-zoom;">
+              <canvas id="scenarioCanvas" width="1012" height="662">
+                Your browser does not support the canvas tag.
+              </canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- controls are present but invisible in fullscreen/embedded mode: -->
+        <div style="visibility: hidden;">
+          <button disabled="true" id="playButton" style="width: 5em;">Run</button>
+          <button disabled="true" id="resetButton" style="width: 5em;">Reset</button>
+          <input type="range" id="speedSlider" min=0 max=99 disabled="true" style="vertical-align: middle;"></input>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
