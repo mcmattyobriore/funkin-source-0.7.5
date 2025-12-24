@@ -1,0 +1,11 @@
+{
+  "name": "Dandy Fruit",
+  "short_name": "Dandy Fruit",
+  "description": "",
+  "start_url": "index.html",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "icons": [],
+  "screenshots": []
+}
